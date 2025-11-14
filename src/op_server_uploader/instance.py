@@ -11,7 +11,7 @@ def upload_instance(text_id, instance):
         return response.json()["id"]
 
 def upload_add_search_segmentation(instance_id, search_segmentation):
-    url = f"{OPENPECHA_SERVER_URL}/text/instance/{instance_id}/annotation"
+    url = f"{OPENPECHA_SERVER_URL}/annotations/{instance_id}/annotation"
     response = requests.post(url, json=search_segmentation)
     if response.status_code != 201:
         raise Exception(f"Error uploading search segmentation: {response.text}")
@@ -26,4 +26,4 @@ def upload_translation_instance(source_instance_id, translation_payload ):
     else:
         instance_id = response.json()["instance_id"]
         text_id = response.json()["text_id"]
-        return instance_id, text_id
+        return text_id, instance_id
