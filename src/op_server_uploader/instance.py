@@ -2,13 +2,8 @@ import requests
 from op_server_uploader.config import OPENPECHA_SERVER_URL
 
 
-def upload_instance(text_id, instance_metadata, instance_content, instance_segmentation):
+def upload_instance(text_id, instance):
     url = f"{OPENPECHA_SERVER_URL}/texts/{text_id}/instances"
-    instance = {
-        "metadata": instance_metadata,
-        "content": instance_content,
-        "annotation": instance_segmentation,
-    }
     response = requests.post(url, json=instance)
     if response.status_code != 201:
         raise Exception(f"Error uploading instance: {response.text}")
