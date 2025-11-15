@@ -18,9 +18,19 @@ def upload_add_search_segmentation(instance_id, search_segmentation):
     else:
         return response.json()["annotation_id"]
 
-def upload_translation_instance(source_instance_id, translation_payload ):
+def upload_translation_instance(source_instance_id, translation_payload):
     url = f"{OPENPECHA_SERVER_URL}/instances/{source_instance_id}/translation"
     response = requests.post(url, json=translation_payload)
+    if response.status_code != 201:
+        raise Exception(f"Error uploading translation instance: {response.text}")
+    else:
+        instance_id = response.json()["instance_id"]
+        text_id = response.json()["text_id"]
+        return text_id, instance_id
+
+def upload_commentary_instance(root_instance_id, commentary_payload):
+    url = f"{OPENPECHA_SERVER_URL}/instances/{root_instance_id}/translation"
+    response = requests.post(url, json=commentary_payload)
     if response.status_code != 201:
         raise Exception(f"Error uploading translation instance: {response.text}")
     else:
