@@ -1,1 +1,0 @@
-OPENPECHA_SERVER_URL = "https://api-l25bgmwqoa-uc.a.run.app/v2"
